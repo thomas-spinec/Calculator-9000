@@ -1,6 +1,6 @@
 export default function BeautifulScreen() {
     return (
-        <div>
+        <div className={'screen'}>
             <input type="text"/>
         </div>
     );
