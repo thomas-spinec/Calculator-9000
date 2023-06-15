@@ -1,7 +1,8 @@
-export default function BeautifulScreen() {
+export default function BeautifulScreen({calc}) {
+
     return (
         <div className={'screen'}>
-            <input type="text"/>
+            <input type="text" value={calc} readOnly={true}/>
         </div>
     );
 }
