@@ -1,7 +1,8 @@
-export default function EqualButton() {
+export default function EqualButton({equal}) {
+    const go = ["="];
     return (
         <div className={"equal"}>
-            <button key={"="}>=</button>
+            <button onClick={() => equal(go)} key={"="}>=</button>
         </div>
     );
 }

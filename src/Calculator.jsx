@@ -7,26 +7,82 @@ import {useState} from "react";
 // TODO: make this a smart component
 
 export default function Calculator() {
-    const [calculator, setCalculator] = useState([]);
+    const listNumber = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+    // faire un tableau avec 3 éléments
+    const [firstNumber, setFirstNumber] = useState("");
+    const [operator, setOperator] = useState("");
+    const [secondNumber, setSecondNumber] = useState("");
+    const [data, setData] = useState('');
+    const [calc, setCalc] = useState('');
 
-    function handleClick(e) {
-        console.log(e.target.textContent);
-        // faire en sorte de  pouvoir utiliser la valeur du bouton dans calculator.jsx
+    const childToParent = (childValue) => {
+        setData(childValue);
+        addNumber(childValue);
+    }
+
+    const equal = (buttonEqual) => {
+        setCalc(buttonEqual);
+        calculate(firstNumber, operator, secondNumber);
+    }
+
+    function calculate(firstNumber, operator, secondNumber) {
+        // on convertit les nombres en entier
+        let first = parseInt(firstNumber);
+        let second = parseInt(secondNumber);
+        // on fait le calcul
+        let result = 0;
+        switch (operator) {
+            case "+":
+                result = first + second;
+                break;
+            case "-":
+                result = first - second;
+                break;
+            case "*":
+                result = first * second;
+                break;
+            case "/":
+                result = first / second;
+                break;
+            default:
+                break;
+        }
+        // on transforme le résultat en string
+        result = result.toString();
+        setFirstNumber(result);
+        setOperator("");
+        setSecondNumber("");
     }
 
     function addNumber(number) {
-        setCalculator([...calculator, number]);
-        console.log(calculator);
+        if (!isNaN(number)) {
+            if (operator === "") {
+                let firstElement = firstNumber.toString();
+                let concat = firstElement.concat(number.toString());
+                setFirstNumber(concat);
+            } else {
+                let thirdElement = secondNumber.toString();
+                let concat = thirdElement.concat(number.toString());
+                setSecondNumber(concat);
+            }
+        } else {
+            if (operator === '') {
+                setOperator(number)
+            } else {
+                calculate(firstNumber, operator, secondNumber);
+                setOperator(number);
+            }
+        }
     }
 
 
     return (
         <div className={"calculator"}>
-            <BeautifulScreen calc={calculator}/>
+            <BeautifulScreen firstNumber={firstNumber} operator={operator} secondNumber={secondNumber}/>
             <div className={"buttons"}>
-                <NumberButton onClick={(e) => handleClick(e)}/>
-                <OperatorButton/>
-                <EqualButton/>
+                <NumberButton childToParent={childToParent}/>
+                <OperatorButton childToParent={childToParent}/>
+                <EqualButton equal={equal}/>
             </div>
         </div>
     );
