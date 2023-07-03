@@ -93,3 +93,9 @@ body {
 .calculator .buttons button:hover {
     background-color: #ccc;
 }
+
+/* easteregg */
+.easter {
+    text-align: center;
+    margin-top: 20px;
+}

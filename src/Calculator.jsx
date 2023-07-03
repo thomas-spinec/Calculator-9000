@@ -3,6 +3,7 @@ import NumberButton from "./NumberButton.jsx";
 import OperatorButton from "./OperatorButton.jsx";
 import EqualButton from "./EqualButton.jsx";
 import {useState} from "react";
+import ItSOverNineThousand from "./ItSOverNineThousand.jsx";
 
 // TODO: make this a smart component
 
@@ -12,6 +13,7 @@ export default function Calculator() {
     const [firstNumber, setFirstNumber] = useState("");
     const [operator, setOperator] = useState("");
     const [secondNumber, setSecondNumber] = useState("");
+    const [result, setResult] = useState("");
     const [data, setData] = useState('');
     const [calc, setCalc] = useState('');
 
@@ -49,9 +51,11 @@ export default function Calculator() {
         }
         // on transforme le résultat en string
         result = result.toString();
+        // on met à jour le state
         setFirstNumber(result);
         setOperator("");
         setSecondNumber("");
+        setResult(result);
     }
 
     function addNumber(number) {
@@ -77,13 +81,16 @@ export default function Calculator() {
 
 
     return (
-        <div className={"calculator"}>
-            <BeautifulScreen firstNumber={firstNumber} operator={operator} secondNumber={secondNumber}/>
-            <div className={"buttons"}>
-                <NumberButton childToParent={childToParent}/>
-                <OperatorButton childToParent={childToParent}/>
-                <EqualButton equal={equal}/>
+        <div>
+            <div className={"calculator"}>
+                <BeautifulScreen firstNumber={firstNumber} operator={operator} secondNumber={secondNumber}/>
+                <div className={"buttons"}>
+                    <NumberButton childToParent={childToParent}/>
+                    <OperatorButton childToParent={childToParent}/>
+                    <EqualButton equal={equal}/>
+                </div>
             </div>
+            <ItSOverNineThousand result={result}/>
         </div>
     );
 }
