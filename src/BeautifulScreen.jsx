@@ -1,10 +1,9 @@
-export default function BeautifulScreen({firstNumber, secondNumber, operator}) {
+export default function BeautifulScreen({operation, result}) {
 
-    // concaténation des valeurs
-    let calc = firstNumber + " " + operator + " " + secondNumber;
     return (
         <div className={'screen'}>
-            <input type="text" value={calc} readOnly={true}/>
+            <input type="text" value={operation} readOnly={true}/>
+            <input type="text" value={result} readOnly={true}/>
         </div>
     );
 }
